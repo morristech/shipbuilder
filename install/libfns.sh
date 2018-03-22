@@ -605,7 +605,7 @@ function configureLxd() {
 
     sbServerRemote=$(${SB_SUDO} lxc remote list | awk '{print $2}' | grep -v '^$' | sed 1d | grep '^sb-server$' | wc -l)
     if [ ${sbServerRemote} -ne 1 ] ; then
-        test -n "$(lxc remote list | sed '1,3d' | grep -v '^+' | awk '{print $2}' | grep "${SB_SSH_HOST}")" || lxc remote add --accept-certificate --public "${SB_SSH_HOST}" "https://${SB_SSH_HOST}:8443"
+        test -n "$(${SB_SUDO} lxc remote list | sed '1,3d' | grep -v '^+' | awk '{print $2}' | grep "${SB_SSH_HOST}")" || ${SB_SUDO} lxc remote add --accept-certificate --public "${SB_SSH_HOST}" "https://${SB_SSH_HOST}:8443"
         abortIfNonZero $? "command \"lxc remote add ${SB_SSH_HOST}\""
     fi
 
