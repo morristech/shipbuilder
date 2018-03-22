@@ -1084,7 +1084,7 @@ func (spec flagSpec) requiredError() error {
 			if spec.typ == "slice" {
 				return fmt.Errorf("one or more %v arguments are required", spec.names[0])
 			}
-			return fmt.Errorf("%v argument is required", spec.names[0], plural)
+			return fmt.Errorf("%v%v argument is required", spec.names[0], plural)
 		}
 		if spec.typ == "slice" {
 			return fmt.Errorf("one or more %v flags are required", spec.names[0])
