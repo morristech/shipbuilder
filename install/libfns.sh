@@ -609,6 +609,8 @@ function configureLxd() {
         abortIfNonZero $? "command \"lxc remote add ${SB_SSH_HOST}\""
     fi
 
+    ${SB_SUDO} chown -R ${USER}:${USER} "${HOME}/.config"
+
     # TODO: Find out what cmd creates .config and run it to ensure the
     # directory will exist.
     if [ -d "${HOME}/.config" ] ; then
