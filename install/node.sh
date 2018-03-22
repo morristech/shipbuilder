@@ -101,7 +101,7 @@ function main() {
         set +x
 
         #${SB_SSH} "${nodeHost}" "${SB_SUDO} lxc remote add --accept-certificate --public sb-server ${SB_SSH_HOST} && ${SB_SUDO}"' cp -a ${USER}/.config /root/'
-        ${SB_SSH} "${nodeHost}" "${SB_SUDO}"' cp -a ${USER}/.config /root/'
+        ${SB_SSH} "${nodeHost}" "${SB_SUDO}"' cp -a ${HOME}/.config /root/'
         abortIfNonZero $? 'adding sb-server lxc remote image server to slave node'
 
         ${SB_SSH} "${nodeHost}" -- /bin/bash -c 'set -o errexit && set -o pipefail && sudo --non-interactive sed -i "/^[ \t]*net\.ipv4\.conf\.all\.route_localnet *=.*/d" /etc/sysctl.conf && sudo --non-interactive sysctl -w $(echo "net.ipv4.conf.all.route_localnet=1" | sudo --non-interactive tee -a /etc/sysctl.conf)'
