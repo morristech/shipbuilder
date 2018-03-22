@@ -605,8 +605,8 @@ function configureLxd() {
 
     sbServerRemote=$(${SB_SUDO} lxc remote list | awk '{print $2}' | grep -v '^$' | sed 1d | grep '^sb-server$' | wc -l)
     if [ ${sbServerRemote} -ne 1 ] ; then
-        ${SB_SUDO} lxc remote add --accept-certificate --public sb-server ${SB_SSH_HOST}
-        abortIfNonZero $? "command 'lxc remote add --accept-certificate --public sb-server ${SB_SSH_HOST}' on $(hostname --fqdn)"
+        test -n "$(lxc remote list | sed '1,3d' | grep -v '^+' | awk '{print $2}' | grep "${SB_SSH_HOST}")" || lxc remote add --accept-certificate --public "${SB_SSH_HOST}" "https://${SB_SSH_HOST}:8443"
+        abortIfNonZero $? "command \"lxc remote add ${SB_SSH_HOST}\""
     fi
 
     # TODO: Find out what cmd creates .config and run it to ensure the
